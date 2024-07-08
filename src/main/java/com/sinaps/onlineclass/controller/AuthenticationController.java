@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sinaps.onlineclass.dto.UserDto;
 import com.sinaps.onlineclass.model.AuthenticationResponse;
 import com.sinaps.onlineclass.model.User;
 import com.sinaps.onlineclass.service.AuthenticationService;
@@ -20,8 +21,8 @@ public class AuthenticationController {
     private final AuthenticationService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(@RequestBody User user) {
-        return ResponseEntity.ok(authService.register(user));
+    public ResponseEntity<AuthenticationResponse> register(@RequestBody UserDto userDto) {
+        return ResponseEntity.ok(authService.register(userDto));
     }
 
     @PostMapping("/login")

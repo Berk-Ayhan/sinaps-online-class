@@ -1,11 +1,16 @@
 package com.sinaps.onlineclass.dto;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.sinaps.onlineclass.model.User;
 
 @Component
 public class UserConverter {
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public UserDto ConvertToDto(User user) {
         if (user == null) {
@@ -16,6 +21,7 @@ public class UserConverter {
         userDto.setId(user.getId());
         userDto.setUsername(user.getUsername());
         userDto.setPassword(user.getPassword());
+        userDto.setPassword(user.getPassword()); // TODO null yapılabilr
         userDto.setFirstName(user.getFirstName());
         userDto.setLastName(user.getLastName());
         userDto.setRole(user.getRole());
@@ -30,7 +36,7 @@ public class UserConverter {
         User user = new User();
         user.setId(userDto.getId());
         user.setUsername(userDto.getUsername());
-        user.setPassword(userDto.getPassword());
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
         user.setRole(userDto.getRole());
