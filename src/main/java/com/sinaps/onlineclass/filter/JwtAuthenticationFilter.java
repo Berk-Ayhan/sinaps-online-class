@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.sinaps.onlineclass.service.JwtService;
-import com.sinaps.onlineclass.service.UserDetailsServiceImp;
+import com.sinaps.onlineclass.service.CustomUserDetailsService;
 
 import java.io.IOException;
 
@@ -24,7 +24,7 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
-    private final UserDetailsServiceImp userDetailsService;
+    private final CustomUserDetailsService userDetailsService;
 
     @Override
     protected void doFilterInternal(

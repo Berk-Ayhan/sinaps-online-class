@@ -2,6 +2,8 @@ package com.sinaps.onlineclass.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,14 +14,10 @@ import com.sinaps.onlineclass.model.User;
 import com.sinaps.onlineclass.service.AuthenticationService;
 
 @RestController
+@RequiredArgsConstructor
 public class AuthenticationController {
 
     private final AuthenticationService authService;
-
-    public AuthenticationController(AuthenticationService authService) {
-        this.authService = authService;
-    }
-
 
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(

@@ -17,7 +17,7 @@ import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.sinaps.onlineclass.filter.JwtAuthenticationFilter;
-import com.sinaps.onlineclass.service.UserDetailsServiceImp;
+import com.sinaps.onlineclass.service.CustomUserDetailsService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -26,7 +26,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final UserDetailsServiceImp userDetailsServiceImp;
+    private final CustomUserDetailsService CustomUserDetailsService;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final CustomLogoutHandler logoutHandler;
 
@@ -40,7 +40,7 @@ public class SecurityConfig {
                                 .requestMatchers("/admin_only/**").hasAuthority("ADMIN")
                                 .anyRequest()
                                 .authenticated()
-                ).userDetailsService(userDetailsServiceImp)
+                ).userDetailsService(CustomUserDetailsService)
                 .sessionManagement(session->session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
