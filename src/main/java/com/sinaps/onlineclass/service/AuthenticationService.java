@@ -1,6 +1,5 @@
 package com.sinaps.onlineclass.service;
 
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.sinaps.onlineclass.dto.UserConverter;
@@ -61,7 +59,7 @@ public class AuthenticationService {
                 userDto.getPassword()
             )
         );
-
+        
         User user = repository.findByUsername(userDto.getUsername()).orElseThrow();
         String accessToken = jwtService.generateAccessToken(user);
         String refreshToken = jwtService.generateRefreshToken(user);
