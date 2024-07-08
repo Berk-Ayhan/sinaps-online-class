@@ -7,14 +7,13 @@ import org.springframework.stereotype.Service;
 
 import com.sinaps.onlineclass.repository.UserRepository;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class UserDetailsServiceImp implements UserDetailsService {
 
     private final UserRepository repository;
-
-    public UserDetailsServiceImp(UserRepository repository) {
-        this.repository = repository;
-    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

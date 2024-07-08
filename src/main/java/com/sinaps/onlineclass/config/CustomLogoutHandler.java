@@ -2,6 +2,8 @@ package com.sinaps.onlineclass.config;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
@@ -10,13 +12,10 @@ import com.sinaps.onlineclass.model.Token;
 import com.sinaps.onlineclass.repository.TokenRepository;
 
 @Configuration
+@RequiredArgsConstructor
 public class CustomLogoutHandler implements LogoutHandler {
 
     private final TokenRepository tokenRepository;
-
-    public CustomLogoutHandler(TokenRepository tokenRepository) {
-        this.tokenRepository = tokenRepository;
-    }
 
     @Override
     public void logout(HttpServletRequest request,

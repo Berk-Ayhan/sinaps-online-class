@@ -16,8 +16,10 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class JwtService {
 
     @Value("${application.security.jwt.secret-key}")
@@ -32,14 +34,9 @@ public class JwtService {
 
     private final TokenRepository tokenRepository;
 
-    public JwtService(TokenRepository tokenRepository) {
-        this.tokenRepository = tokenRepository;
-    }
-
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
-
 
     public boolean isValid(String token, UserDetails user) {
         String username = extractUsername(token);

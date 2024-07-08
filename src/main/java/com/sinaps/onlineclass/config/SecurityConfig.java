@@ -23,25 +23,15 @@ import lombok.RequiredArgsConstructor;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
 
     private final UserDetailsServiceImp userDetailsServiceImp;
-
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
-
     private final CustomLogoutHandler logoutHandler;
-
-    public SecurityConfig(UserDetailsServiceImp userDetailsServiceImp,
-                          JwtAuthenticationFilter jwtAuthenticationFilter,
-                          CustomLogoutHandler logoutHandler) {
-        this.userDetailsServiceImp = userDetailsServiceImp;
-        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
-        this.logoutHandler = logoutHandler;
-    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
@@ -65,7 +55,6 @@ public class SecurityConfig {
                         .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext()
                         ))
                 .build();
-
     }
 
     @Bean
