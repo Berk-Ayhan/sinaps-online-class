@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sinaps.onlineclass.dto.UserDto;
 import com.sinaps.onlineclass.model.AuthenticationResponse;
-import com.sinaps.onlineclass.model.User;
 import com.sinaps.onlineclass.service.AuthenticationService;
 
 @RestController
@@ -26,8 +25,8 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthenticationResponse> login(@RequestBody User user) {
-        return ResponseEntity.ok(authService.authenticate(user));
+    public ResponseEntity<AuthenticationResponse> login(@RequestBody UserDto userDto) {
+        return ResponseEntity.ok(authService.authenticate(userDto));
     }
 
     @PostMapping("/refresh-token")

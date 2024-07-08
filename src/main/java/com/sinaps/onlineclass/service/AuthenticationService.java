@@ -1,5 +1,6 @@
 package com.sinaps.onlineclass.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -52,15 +53,16 @@ public class AuthenticationService {
         return new AuthenticationResponse(accessToken, refreshToken,"User registration was successful");
     }
 
-    public AuthenticationResponse authenticate(User request) {
+    public AuthenticationResponse authenticate(UserDto userDto) {
+
         authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getUsername(),
-                        request.getPassword()
-                )
+            new UsernamePasswordAuthenticationToken(
+                userDto.getUsername(),
+                userDto.getPassword()
+            )
         );
 
-        User user = repository.findByUsername(request.getUsername()).orElseThrow();
+        User user = repository.findByUsername(userDto.getUsername()).orElseThrow();
         String accessToken = jwtService.generateAccessToken(user);
         String refreshToken = jwtService.generateRefreshToken(user);
 
@@ -68,7 +70,6 @@ public class AuthenticationService {
         saveUserToken(accessToken, refreshToken, user);
 
         return new AuthenticationResponse(accessToken, refreshToken, "User login was successful");
-
     }
     private void revokeAllTokenByUser(User user) {
         List<Token> validTokens = tokenRepository.findAllAccessTokensByUser(user.getId());
@@ -121,6 +122,5 @@ public class AuthenticationService {
         }
 
         return new ResponseEntity(HttpStatus.UNAUTHORIZED);
-
     }
 }
