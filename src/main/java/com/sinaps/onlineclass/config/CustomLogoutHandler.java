@@ -18,9 +18,7 @@ public class CustomLogoutHandler implements LogoutHandler {
     private final TokenRepository tokenRepository;
 
     @Override
-    public void logout(HttpServletRequest request,
-                       HttpServletResponse response,
-                       Authentication authentication) {
+    public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
         String authHeader = request.getHeader("Authorization");
 
         if(authHeader == null || !authHeader.startsWith("Bearer ")) {
