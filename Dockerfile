@@ -14,5 +14,5 @@ FROM eclipse-temurin:21-jdk-alpine
 # 4. Build aşamasından JAR dosyasını al ve konteynere kopyala
 COPY --from=build /home/app/target/*.jar app.jar
 
-# 5. Uygulamanın çalıştırılma komutunu belirle
-ENTRYPOINT ["java","-jar","/app.jar"]
+# 5. Uygulamanın çalıştırılma komutunu belirle (Docker profilini kullanacak şekilde güncelle)
+ENTRYPOINT ["java","-Dspring.profiles.active=docker","-jar","/app.jar"]

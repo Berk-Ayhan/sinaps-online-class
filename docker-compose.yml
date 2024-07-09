@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8
+    container_name: mysqlcontainer
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: spring_jwt
+    ports:
+      - "3307:3306"
+    networks:
+      - mysqlnetwork
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  springapp:
+    image: onlineclass-app
+    container_name: springcontainer
+    environment:
+      MYSQL_HOST: mysqlcontainer
+      MYSQL_PORT: 3306
+      MYSQL_DB_NAME: spring_jwt
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+    ports:
+      - "8090:8080"
+    networks:
+      - mysqlnetwork
+    depends_on:
+      - mysql
+
+networks:
+  mysqlnetwork:
+    driver: bridge
+
+volumes:
+  mysql-data:
